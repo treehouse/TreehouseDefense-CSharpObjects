@@ -15,6 +15,7 @@ namespace TreehouseDefense
             }
         }
 
+        // virtual property
         protected virtual uint Range { get { return 1; } }
         protected virtual uint Power { get { return 1; } }
         protected virtual double Accuracy { get { return .5; } }
@@ -55,6 +56,7 @@ namespace TreehouseDefense
         public LongRangeTower(MapLocation location, Path path) : base(location, path)
         {}
 
+        // overriding virtual property and polymorphism
         protected override uint Range { get { return 3; } }
         protected override uint Power { get { return 1; } }
         protected override double Accuracy { get { return .33; } }
@@ -62,6 +64,7 @@ namespace TreehouseDefense
     
     class CustomTower : Tower
     {
+        // optional parameters
         public CustomTower(MapLocation location, Path path, 
             uint range = 1, uint strength = 1, double accuracy = .5) : base(location, path)
         {

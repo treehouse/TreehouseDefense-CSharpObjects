@@ -14,13 +14,6 @@ namespace TreehouseDefense
             Y = y;
         }
         
-        // Teach the copy constructor
-        public Point(Point point)
-        {
-            X = point.X;
-            Y = point.Y;
-        }
-
         // Math methods, using domain specific resources
         public double DistanceTo(int x, int y)
         {

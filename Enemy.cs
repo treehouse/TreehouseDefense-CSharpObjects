@@ -71,7 +71,7 @@ namespace TreehouseDefense
         // Alternative implementation of readonly property
         protected override int StepSize { get { return 1; } }
         
-        // Override virtual method
+        // Override virtual method for polymophism
         public override void DecreaseHealth(uint factor)
         {
             if (Random.NextDouble() < .5)

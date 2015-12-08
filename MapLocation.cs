@@ -20,6 +20,7 @@ namespace TreehouseDefense
         public bool InRangeOf(MapLocation location, uint range)
         {
             // Members can access private members of a different object.
+            // implicit parameter type conversions
             return DistanceTo(location) <= range;
         }
     }
