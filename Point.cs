@@ -20,12 +20,18 @@ namespace TreehouseDefense
             X = point.X;
             Y = point.Y;
         }
+
+        // Math methods, using domain specific resources
+        public double DistanceTo(int x, int y)
+        {
+            // Cartesian Distance Formula
+            return Math.Sqrt(Math.Pow(X - x, 2) + Math.Pow(Y - y, 2)); 
+        }
         
         // Math methods, using domain specific resources
         public double DistanceTo(Point point)
         {
-            // Cartesian Distance Formula
-            return Math.Sqrt(Math.Pow(this.X - point.X, 2) + Math.Pow(this.Y - point.Y, 2)); 
+            return DistanceTo(point.X, Point.Y); 
         }
         
         // overriding Object.Equals
