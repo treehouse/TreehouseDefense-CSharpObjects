@@ -8,7 +8,7 @@ namespace TreehouseDefense
         {            
             // named parameters
             // In a real game level1* would all be read from a file but we haven't learned that yet.
-            var level1Map = new Map(width=10, height=5);
+            var level1Map = new Map(width:10, height:5);
             
             var level1Path = new Path(
                 new []

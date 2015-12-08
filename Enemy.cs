@@ -16,21 +16,20 @@ namespace TreehouseDefense
             Location = _path.GetLocationAt(_pathPosition);
         }
         
-        // complex accessor property
-        public bool IsActive { get { return Health > 0 && Location != null; } }
         // auto property with access modifier on accessor
         public MapLocation Location { get; private set; }
         
+        // complex accessor property
+        public bool IsActive { get { return Health > 0 && Location != null; } }
         // abstract property
-        protected abstract int Health { get; set; }
+        protected abstract int Health { get ; set; }
         
         // abstract property with restrictions
         protected abstract int StepSize { get; }
         
-        // uint and cast
-        public virtual void DecreaseHealth(uint factor)
+        public virtual void DecreaseHealth(int factor)
         {
-            Health -= (int)factor;
+            Health -= factor;
         }
         
         // comparing with null
@@ -60,9 +59,10 @@ namespace TreehouseDefense
         private const int _StepSize = 1;
     }
     
-    sealed class SheildedEnemy: Enemy
+    // Sealed
+    sealed class ShieldedEnemy: Enemy
     {
-        public SheildedEnemy(Path path) : base(path)
+        public ShieldedEnemy(Path path) : base(path)
         {}
     
         // abstract and virtual members must remain virtual
@@ -72,7 +72,8 @@ namespace TreehouseDefense
         protected override int StepSize { get { return 1; } }
         
         // Override virtual method for polymophism
-        public override void DecreaseHealth(uint factor)
+        // Calling base version
+        public override void DecreaseHealth(int factor)
         {
             if (Random.NextDouble() < .5)
             {

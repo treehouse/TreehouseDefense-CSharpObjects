@@ -3,7 +3,7 @@ namespace TreehouseDefense
     // Concrete base class
     class Tower
     {
-        private MapLocation _location;
+        private readonly MapLocation _location;
         
         public Tower(MapLocation location, Path path)
         {
@@ -16,8 +16,8 @@ namespace TreehouseDefense
         }
 
         // virtual property
-        protected virtual uint Range { get { return 1; } }
-        protected virtual uint Power { get { return 1; } }
+        protected virtual int Range { get { return 1; } }
+        protected virtual int Power { get { return 1; } }
         protected virtual double Accuracy { get { return .5; } }
         
         // Random, property behaves like a method with no parameters
@@ -57,8 +57,8 @@ namespace TreehouseDefense
         {}
 
         // overriding virtual property and polymorphism
-        protected override uint Range { get { return 3; } }
-        protected override uint Power { get { return 1; } }
+        protected override int Range { get { return 3; } }
+        protected override int Power { get { return 1; } }
         protected override double Accuracy { get { return .33; } }
     }
     
@@ -66,17 +66,17 @@ namespace TreehouseDefense
     {
         // optional parameters
         public CustomTower(MapLocation location, Path path, 
-            uint range = 1, uint strength = 1, double accuracy = .5) : base(location, path)
+            int range = 1, int strength = 1, double accuracy = .5) : base(location, path)
         {
             _Range = range;
             _Power = strength;
             _Accuracy = accuracy;
         }
 
-        protected override uint Range { get { return _Range; } }
-        private readonly uint _Range;
-        protected override uint Power { get { return _Power; } }
-        private readonly uint _Power;
+        protected override int Range { get { return _Range; } }
+        private readonly int _Range;
+        protected override int Power { get { return _Power; } }
+        private readonly int _Power;
         protected override double Accuracy { get { return _Accuracy; } }
         private readonly double _Accuracy;
     }
@@ -89,8 +89,8 @@ namespace TreehouseDefense
         public PowerfulTower(MapLocation location, Path path) : base(location, path)
         {}
 
-        protected override uint Range { get { return 1; } }
-        protected override uint Power { get { return 3; } }
+        protected override int Range { get { return 1; } }
+        protected override int Power { get { return 3; } }
         protected override double Accuracy { get { return .5; } }
     }
     
@@ -99,8 +99,8 @@ namespace TreehouseDefense
         public SniperTower(MapLocation location, Path path) : base(location, path)
         {}
 
-        protected override uint Range { get { return 2; } }
-        protected override uint Power { get { return 1; } }
+        protected override int Range { get { return 2; } }
+        protected override int Power { get { return 1; } }
         protected override double Accuracy { get { return 1.0; } }
     }
 }

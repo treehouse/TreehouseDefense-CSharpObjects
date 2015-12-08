@@ -4,10 +4,10 @@ namespace TreehouseDefense
 {
     class Map
     {
-        public readonly uint Width;
-        public readonly uint Height;
+        public readonly int Width;
+        public readonly int Height;
 
-        public Map(uint width, uint height)
+        public Map(int width, int height)
         {
             Width = width;
             Height = height;

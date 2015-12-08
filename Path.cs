@@ -24,7 +24,8 @@ namespace TreehouseDefense
             for(int i = 0; i < Length; ++i)
             {
                 var loc = _path[i];
-                if(Array.IndexOf(_path, loc, 0, i) != -1 || Array.IndexOf(_path, loc, i+1, Length-i-1) != -1)
+                if(Array.IndexOf(_path, loc, 0, i) != -1 || 
+                   Array.IndexOf(_path, loc, i+1, Length-i-1) != -1)
                 {
                     throw new PathInvalidException(loc + " is on the path twice.");
                 }
@@ -45,7 +46,7 @@ namespace TreehouseDefense
         // ternary operator, array index accessor
         public MapLocation GetLocationAt(int pathPosition)
         {            
-            return (pathPosition < _path.Length)? _path[pathPosition] : null; 
+            return (pathPosition < Length)? _path[pathPosition] : null; 
         }
         
         // IndexOf array method
