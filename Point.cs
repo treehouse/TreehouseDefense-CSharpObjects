@@ -21,7 +21,7 @@ namespace TreehouseDefense
             return Math.Sqrt(Math.Pow(X - x, 2) + Math.Pow(Y - y, 2)); 
         }
         
-        // Math methods, using domain specific resources
+        // Overloaded methods
         public double DistanceTo(Point point)
         {
             return DistanceTo(point.X, point.Y); 

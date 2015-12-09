@@ -77,7 +77,7 @@ namespace TreehouseDefense
         {
             if (Random.NextDouble() < .5)
             {
-                base.DecreaseHealth(factor);
+                base.DecreaseHealth(factor); // You don't have to do this
             }
         }
     }

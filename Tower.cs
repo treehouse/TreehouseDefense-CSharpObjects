@@ -21,32 +21,38 @@ namespace TreehouseDefense
         protected virtual double Accuracy { get { return .5; } }
         
         // Random, property behaves like a method with no parameters
-        private bool HitEnemy { get { return Random.NextDouble() < Accuracy; } }
+        private bool EnemyHit { get { return Random.NextDouble() < Accuracy; } }
 
-        // foreach, &&, default Object.ToString() implementation       
+        // &&, default Object.ToString() implementation
+        public void FireOnEnemy(Enemy enemy)
+        {
+            if(enemy.IsActive && _location.InRangeOf(enemy.Location, Range))
+            {
+                if(EnemyHit)
+                {
+                    enemy.DecreaseHealth(Power);
+                    
+                    // In a real game these would be callbacks but we're not covering that
+                    System.Console.WriteLine(this + " shot and hit.");
+                }
+                else
+                {
+                    System.Console.WriteLine(this + " shot and missed.");
+                }
+                
+                if(!enemy.IsActive)
+                {
+                    System.Console.WriteLine(enemy + " is destroyed.");
+                }
+            }
+        }
+
+        // foreach, passing arrays       
         public void FireOnEnemies(Enemy[] enemies)
         {
             foreach(var enemy in enemies)
             {
-                if(enemy.IsActive && _location.InRangeOf(enemy.Location, Range))
-                {
-                    if(HitEnemy)
-                    {
-                        enemy.DecreaseHealth(Power);
-                        
-                        // In a real game these would be callbacks but we're not covering that
-                        System.Console.WriteLine(this + " shot and hit.");
-                    }
-                    else
-                    {
-                        System.Console.WriteLine(this + " shot and missed.");
-                    }
-                    
-                    if(!enemy.IsActive)
-                    {
-                        System.Console.WriteLine(enemy + " is destroyed.");
-                    }
-                }
+                FireOnEnemy(enemy);
             }
         }
     }
