@@ -13,10 +13,17 @@ namespace TreehouseDefense
             Height = height;
         }
         
-        public bool OnMap(Point location)
+        public bool OnMap(Point point)
         {
-            return location.X >= 0 && location.X < Width && 
-                   location.Y >= 0 && location.Y < Height;
+            // &&
+            return point.X >= 0 && point.X < Width && 
+                   point.Y >= 0 && point.Y < Height;
+                   
+            // || () ! and short circuiting
+            return !(point.X < 0 || point.X >= Width ||
+                     point.Y < 0 || point.Y >= Height);
+                     
+            // Use graphics to demonstrate truth tables and nor?
         }
-    }    
+    }
 }

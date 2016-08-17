@@ -1,7 +1,7 @@
 namespace TreehouseDefense
 {    
     // Concrete base class
-    class Tower
+    abstract class Tower
     {
         private readonly MapLocation _location;
         
@@ -15,16 +15,15 @@ namespace TreehouseDefense
             }
         }
 
-        // virtual property
-        protected virtual int Range { get { return 1; } }
-        protected virtual int Power { get { return 1; } }
-        protected virtual double Accuracy { get { return .5; } }
-        
+        protected virtual int Range { get; }
+        protected virtual int Power { get; }
+        protected virtual double Accuracy { get; }
+
         // Random, property behaves like a method with no parameters
         private bool EnemyHit { get { return Random.NextDouble() < Accuracy; } }
 
         // &&, default Object.ToString() implementation
-        public void FireOnEnemy(Enemy enemy)
+        public void FireOnEnemy(Invader enemy)
         {
             if(enemy.IsActive && _location.InRangeOf(enemy.Location, Range))
             {
@@ -48,7 +47,7 @@ namespace TreehouseDefense
         }
 
         // foreach, passing arrays       
-        public void FireOnEnemies(Enemy[] enemies)
+        public void FireOnEnemies(Invader[] enemies)
         {
             foreach(var enemy in enemies)
             {
@@ -57,6 +56,18 @@ namespace TreehouseDefense
         }
     }
     
+    class BasicTower : Tower
+    {
+        public BasicTower(MapLocation location, Path path) : base(location, path)
+        {}
+        // virtual property
+        protected override int Range { get { return 1; } }
+
+        //protected virtual int Power { get { return 1; } }
+        protected override int Power { get; } = 1;
+        protected override double Accuracy { get { return .5; } }
+    }
+
     class LongRangeTower : Tower
     {
         public LongRangeTower(MapLocation location, Path path) : base(location, path)
@@ -72,18 +83,20 @@ namespace TreehouseDefense
     {
         // optional parameters
         public CustomTower(MapLocation location, Path path, 
-            int range = 1, int strength = 1, double accuracy = .5) : base(location, path)
+            int range = 1, int power = 1, double accuracy = .5) : base(location, path)
         {
             _Range = range;
-            _Power = strength;
+            Power = power;
             _Accuracy = accuracy;
         }
 
+        // Three different ways to do a readonly property
         protected override int Range { get { return _Range; } }
         private readonly int _Range;
-        protected override int Power { get { return _Power; } }
-        private readonly int _Power;
-        protected override double Accuracy { get { return _Accuracy; } }
+        
+        protected override int Power { get; }
+        
+        protected override double Accuracy => _Accuracy;
         private readonly double _Accuracy;
     }
     

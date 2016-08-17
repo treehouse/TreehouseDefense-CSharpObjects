@@ -1,26 +1,25 @@
-using System;
-
 namespace TreehouseDefense
 {
     // Abstract base class
-    abstract class Enemy
+    abstract class Invader
     {
         // private readonly field
         private readonly Path _path;
         // private mutable field 
-        private int _pathPosition = 0;
+        private int _pathStep = 0;
         
-        public Enemy(Path path)
+        public Invader(Path path)
         {
             _path = path;
-            Location = _path.GetLocationAt(_pathPosition);
         }
         
         // auto property with access modifier on accessor
-        public MapLocation Location { get; private set; }
+        public MapLocation Location => _path.GetLocationAt(_pathStep);
         
         // complex accessor property
-        public bool IsActive { get { return Health > 0 && Location != null; } }
+        public bool IsActive => Health > 0 && !HasScored;
+        
+        public bool HasScored => _pathStep >= _path.Length;
         // abstract property
         protected abstract int Health { get ; set; }
         
@@ -32,37 +31,16 @@ namespace TreehouseDefense
             Health -= factor;
         }
         
-        // comparing with null
-        public bool Move()
+        public void Move()
         {
-            _pathPosition += StepSize;
-            Location = _path.GetLocationAt(_pathPosition);
-            
-            return Location == null;
+            _pathStep += StepSize;
         }
     }
     
-    // concrete implementation of abstract base class
-    class StandardEnemy: Enemy
-    {
-        
-        public StandardEnemy(Path path) : base(path)
-        {}
-    
-        // implement abstract Property
-        // auto property with initializer
-        protected override int Health { get; set; } = 1;
-        
-        // Readonly property with backing field
-        protected override int StepSize { get { return _StepSize;} }
-        // const field
-        private const int _StepSize = 1;
-    }
-    
     // Sealed
-    sealed class ShieldedEnemy: Enemy
+    sealed class SheildedInvader: Invader
     {
-        public ShieldedEnemy(Path path) : base(path)
+        public SheildedInvader(Path path) : base(path)
         {}
     
         // abstract and virtual members must remain virtual
@@ -82,12 +60,29 @@ namespace TreehouseDefense
         }
     }
     
+    // concrete implementation of abstract base class
+    class StandardInvader: Invader
+    {
+        
+        public StandardInvader(Path path) : base(path)
+        {}
+    
+        // implement abstract Property
+        // auto property with initializer
+        protected override int Health { get; set; } = 1;
+        
+        // Readonly property with backing field
+        protected override int StepSize { get { return _StepSize;} }
+        // const field
+        private const int _StepSize = 1;
+    }
+    
     // The rest of these are exercises for the student
     
     // This one we'll do together
-    class CustomEnemy: Enemy
+    class CustomInvader: Invader
     {
-        public CustomEnemy(Path path, int health, int stepSize) : base(path)
+        public CustomInvader(Path path, int health, int stepSize) : base(path)
         {
             Health = health;
             _StepSize = stepSize;
@@ -95,23 +90,23 @@ namespace TreehouseDefense
         
         protected override int Health { get; set; }
         
-        protected override int StepSize { get { return _StepSize; } }
+        protected override int StepSize { get; private set; }
         private readonly int _StepSize;
     }
     
-    class StrongEnemy: Enemy
+    class StrongInvader: Invader
     {
-        public StrongEnemy(Path path) : base(path)
+        public StrongInvader(Path path) : base(path)
         {}
-    
+
         protected override int Health { get; set; } = 10;
         
         protected override int StepSize { get { return 1; } }
     }
     
-    class FastEnemy: Enemy
+    class FastInvader: Invader
     {
-        public FastEnemy(Path path) : base(path)
+        public FastInvader(Path path) : base(path)
         {}
         
         protected override int Health { get; set; } = 1;

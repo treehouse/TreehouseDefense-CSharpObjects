@@ -2,12 +2,12 @@ namespace TreehouseDefense
 {
     class Level
     {
-        protected Map Map { get; private set; }
-        protected Path Path { get; private set; }
-        protected Enemy[] Enemies { get; private set; }
+        protected Map Map { get; }
+        protected Path Path { get; }
+        protected Invader[] Enemies { get; }
         public Tower[] Towers { get; set; }
         
-        public Level(Map map, Path path, Enemy[] enemies)
+        public Level(Map map, Path path, Invader[] enemies)
         {
             Map = map;
             Path = path;
@@ -19,10 +19,11 @@ namespace TreehouseDefense
         public virtual bool Play()
         {
             int remainingEnemies = Enemies.Length;
-            bool playerLost = false;
             
+            // Loop until all enemies are disabled or an enemy reaches the end of the path.
             while(remainingEnemies > 0)
             {
+                // Each tower has opportunity to fire on enemies
                 foreach(var tower in Towers)
                 {
                     tower.FireOnEnemies(Enemies);
@@ -30,22 +31,22 @@ namespace TreehouseDefense
                 
                 remainingEnemies = 0;
                 
+                // Count count and move enemies that are still active.
                 foreach(var enemy in Enemies)
                 {
                     if(enemy.IsActive)
                     {
-                        if(enemy.Move())
+                        enemy.Move();
+                        if(enemy.HasScored)
                         {
-                            playerLost = true;
-                            break; 
+                            return true;
                         }
                         
                         ++remainingEnemies;
                     }
                 }
             }
-            
-            return playerLost;
+            return false;
         }
     }
 }

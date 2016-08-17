@@ -6,15 +6,13 @@ namespace TreehouseDefense
     {
         // private readonly field
         private readonly MapLocation[] _path;
+        public int Length => _path.Length;
         
         public Path(MapLocation[] path)
         {            
             _path = path;
             ValidatePath();
         }
-        
-        // Example of a virtual property
-        public int Length { get { return _path.Length; } }
         
         // A different IndexOf array method, for loops, array indexing, nor conditional operator, 
         // Math.Abs, throwing custom exception with descriptions, input validation habits, complex logic
@@ -44,15 +42,31 @@ namespace TreehouseDefense
         }
         
         // ternary operator, array index accessor
-        public MapLocation GetLocationAt(int pathPosition)
-        {            
-            return (pathPosition < Length)? _path[pathPosition] : null; 
+        public MapLocation GetLocationAt(int pathStep)
+        {
+            return (pathStep < Length)? _path[pathStep] : null; 
         }
         
-        // IndexOf array method
+        public MapLocation this[int pathStep]
+        {
+            get { return GetLocationAt(pathStep); }
+        }
+        
+        // IndexOf array method and polymorphism
         public bool OnPath(MapLocation location)
         {
-            return System.Array.IndexOf(_path, location) != -1;
+            foreach (MapLocation pathLocation in _path)
+            {
+                if(location.X == pathLocation.X && location.Y == pathLocation.Y)
+                {
+                    return true;
+                }
+            }
+            
+            return false;
+            
+            // Can't teach this without first teaching polymorphism
+            // return System.Array.IndexOf(_path, location) != -1;
         }
     }
 }

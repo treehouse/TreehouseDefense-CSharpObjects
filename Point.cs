@@ -1,4 +1,5 @@
 using System;
+using static System.Math;
 
 namespace TreehouseDefense
 {
@@ -15,16 +16,19 @@ namespace TreehouseDefense
         }
         
         // Math methods, using domain specific resources
-        public double DistanceTo(int x, int y)
+        public int DistanceTo(int x, int y)
         {
+            // Alternate formula that treats diagonal points as being the same distance as those on the axes.
+            //return Math.Max(Math.Abs(X-x), Math.Abs(Y-y));
+            
             // Cartesian Distance Formula
-            return Math.Sqrt(Math.Pow(X - x, 2) + Math.Pow(Y - y, 2)); 
+            return (int)Sqrt(Pow(X - x, 2) + Pow(Y - y, 2)); 
         }
         
         // Overloaded methods
-        public double DistanceTo(Point point)
+        public int DistanceTo(Point point)
         {
-            return DistanceTo(point.X, point.Y); 
+            return DistanceTo(point.X, point.Y);
         }
         
         // overriding Object.Equals

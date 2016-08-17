@@ -1,7 +1,18 @@
 namespace TreehouseDefense
 {
+    class TreehouseDefenseException : System.Exception
+    {
+        // Implemented default constructor
+        public TreehouseDefenseException()
+        {}
+        
+        // Overloaded constructor
+        public TreehouseDefenseException(string message) : base(message)
+        {}
+    }
+    
     // Custom exceptions
-    class OutOfBoundsException : System.Exception
+    class OutOfBoundsException : TreehouseDefenseException
     {
         // Implemented default constructor
         public OutOfBoundsException()
@@ -12,13 +23,13 @@ namespace TreehouseDefense
         {}
     }
     
-    class TowerOnPathException : System.Exception
+    class TowerOnPathException : TreehouseDefenseException
     {
         public TowerOnPathException(Point location) : base(location.ToString())
         {}
     }
     
-    class PathInvalidException : System.Exception
+    class PathInvalidException : TreehouseDefenseException
     {
         public PathInvalidException(string message) : base(message)
         {}

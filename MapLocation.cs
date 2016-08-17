@@ -4,7 +4,7 @@ namespace TreehouseDefense
     class MapLocation : Point
     {        
         // protected constructor
-        protected MapLocation(int x, int y) : base((int) x, (int) y)
+        protected MapLocation(int x, int y) : base(x, y)
         {}
         
         // Calling local constructor
